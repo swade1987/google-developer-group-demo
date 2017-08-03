@@ -25,3 +25,11 @@ A list of prerequisities for Windows can be found [here](docs/2-windows-prerequi
 ## Cluster creation
 
 A list of steps to build and provision the Kubernetes cluster can be found [here](docs/3-build-cluster.md)
+
+## TODO List
+
+[ ] Fix Prometheus scraping jobs to work with `/metrics/cadvisor` endpoint.
+
+[ ] Include section on configuring the Slack webook URL.
+
+[ ] Document workflow to fire alerts to Slack.
