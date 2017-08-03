@@ -37,6 +37,6 @@ To validate everything has been successfully installed browse to the following s
 - <a href="http://prometheus.example.com" target="_blank">http://prometheus.example.com</a>
 - <a href="http://alerting.example.com" target="_blank">http://alerting.example.com</a>
 
-## 5. Install Prometheus and Grafana
+## 5. Install Fotia
 
 To install Fotia follow the steps [here](6-installing-fotia.md)
