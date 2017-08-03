@@ -28,3 +28,14 @@ provision-cluster:
 destroy-cluster:
 	cd terraform && terraform destroy --force
 	rm -rf ansible generated runs ssh helm kismatic kubeconfig kubectl provision
+
+deploy-prometheus:
+	@echo "Create PVs for prometheus"
+	./kismatic volume add 5
+	./kismatic volume add 5
+	KUBECONFIG=$(KUBECONFIG) helm upgrade --install prometheus charts/prometheus
+
+deploy-grafana:
+	@echo "Create PVs for grafana"
+	./kismatic volume add 10
+	KUBECONFIG=$(KUBECONFIG) helm upgrade --install grafana charts/grafana
