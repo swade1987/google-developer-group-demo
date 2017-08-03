@@ -1,0 +1,14 @@
+name: fotia
+
+image:
+  repository: quay.io
+  name: swade1987/fotia
+  tag: 1.1.1
+  pullPolicy: IfNotPresent
+
+replicas: 1
+
+nodeSelector: {}
+
+ingress:
+  hostname: fotia.example.com

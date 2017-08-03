@@ -1,0 +1,7 @@
+apiVersion: v1
+description: A Helm chart for deploying Fotia
+name: fotia
+version: 1.1.1
+maintainers:
+  - name: Steve Wade
+    email: swade@apprenda.com
