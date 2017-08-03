@@ -15,3 +15,9 @@ After standing up the Kubernetes cluster we will deploy the following applicatio
 3. [Fotia (Golang application used to demo Prometheus alerts)](https://github.com/swade1987/fotia)
 
 We will then proceed to cause Prometheus to fire alerts to Slack based upon interaction with Fotia.
+
+## Prerequisites
+
+A list of prerequisities for Mac can be found [here](docs/1-mac-prerequisities.md)
+
+A list of prerequisities for Windows can be found [here](docs/2-windows-prerequisities.md)
