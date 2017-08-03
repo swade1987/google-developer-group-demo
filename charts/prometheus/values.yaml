@@ -1,0 +1,166 @@
+#   ############################################################
+#   ALERT MANAGER VALUES
+#   ############################################################
+alertmanager:
+  name: alertmanager
+
+  image:
+    repository: docker.io
+    name: prom/alertmanager
+    tag: v0.8.0
+    pullPolicy: IfNotPresent
+
+  extraArgs: {}
+
+  ingress:
+    enabled: false
+    annotations: {}
+
+  nodeSelector: {}
+
+  persistentVolume:
+    enabled: true
+    accessModes:
+      - ReadWriteMany
+    annotations:
+      helm.sh/resource-policy: keep
+    existingClaim: ""
+    mountPath: /data
+    size: 5Gi
+    storageClass: "kismatic"
+
+  podAnnotations: {}
+
+  replicaCount: 1
+
+  resources:
+    limits:
+      cpu: 10m
+      memory: 32Mi
+    requests:
+      cpu: 10m
+      memory: 32Mi
+
+  service:
+    annotations: {}
+
+  ingress:
+    hostname: alerting.example.com
+
+#   ############################################################
+#   KUBE STATIC METRICS VALUES
+#   https://github.com/kubernetes/kube-state-metrics
+#   ############################################################
+kubeStateMetrics:
+  name: kube-state-metrics
+
+  image:
+    repository: gcr.io
+    name: google_containers/kube-state-metrics
+    tag: v0.4.1
+    pullPolicy: IfNotPresent
+
+  nodeSelector: {}
+
+  podAnnotations: {}
+
+  replicaCount: 1
+
+  resources:
+    limits:
+      cpu: 30m
+      memory: 60Mi
+    requests:
+      cpu: 30m
+      memory: 60Mi
+
+  service:
+    annotations:
+      prometheus.io/scrape: "true"
+
+#   ############################################################
+#   NODE EXPORTER VALUES
+#   ############################################################
+nodeExporter:
+  name: node-exporter
+
+  image:
+    repository: docker.io
+    name: prom/node-exporter
+    tag: v0.14.0
+    pullPolicy: IfNotPresent
+
+  extraArgs:
+    collectors.enabled: conntrack,diskstats,entropy,filefd,filesystem,loadavg,mdadm,meminfo,netdev,netstat,stat,textfile,time,vmstat,systemd,interrupts
+
+  nodeSelector: {}
+  podAnnotations: {}
+
+  service:
+    annotations:
+      prometheus.io/scrape: "true"
+
+    hostPort: 9100
+
+#   ############################################################
+#   CONFIG MAP RELOAD VALUES
+#   Monitors ConfigMap changes and POSTs to a URL (Ref: https://github.com/jimmidyson/configmap-reload)
+#   ############################################################
+configmapReload:
+  name: configmap-reload
+
+  image:
+    repository: docker.io
+    name: jimmidyson/configmap-reload
+    tag: v0.1
+    pullPolicy: IfNotPresent
+
+  resources: {}
+
+#   ############################################################
+#   PROMETHEUS VALUES
+#   ############################################################
+server:
+  name: prometheus
+
+  image:
+    repository: docker.io
+    name: prom/prometheus
+    tag: v1.7.1
+    pullPolicy: IfNotPresent
+
+  alertmanagerURL: ""
+
+  extraArgs:
+    storage.local.retention: 2h # 4 days
+    alertmanager.url: http://alertmanager
+
+  nodeSelector: {}
+
+  persistentVolume:
+    accessModes:
+      - ReadWriteMany
+    annotations:
+      helm.sh/resource-policy: keep
+
+    mountPath: /data
+    size: 5Gi
+    storageClass: "kismatic"
+    subPath: ""
+
+
+  podAnnotations: {}
+  replicaCount: 1
+
+  service:
+    annotations: {}
+
+  terminationGracePeriodSeconds: 300
+
+  ingress:
+    hostname: prometheus.example.com
+
+## Prometheus server ConfigMap entries
+serverFiles:
+  alerts: ""
+  rules: ""

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "{{ .Values.alertmanager.persistentVolume.storageClass }}"
+  {{- if .Values.alertmanager.persistentVolume.annotations }}
+{{ toYaml .Values.alertmanager.persistentVolume.annotations | indent 4 }}
+  {{- end }}
+  labels:
+    app_name: {{ .Values.alertmanager.name }}
+    helm_chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+  name: {{ .Values.alertmanager.name }}
+spec:
+  accessModes:
+{{ toYaml .Values.alertmanager.persistentVolume.accessModes | indent 4 }}
+  resources:
+    requests:
+      storage: "{{ .Values.alertmanager.persistentVolume.size }}"

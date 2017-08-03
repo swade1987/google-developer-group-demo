@@ -1,0 +1,45 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: {{ .Values.kubeStateMetrics.name }}
+  labels:
+    app_name: {{ .Values.kubeStateMetrics.name }}
+    app_version: {{ .Values.kubeStateMetrics.image.tag | quote }}
+    helm_chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+spec:
+  revisionHistoryLimit: 30
+  replicas: {{ .Values.kubeStateMetrics.replicas }}
+  selector:
+    matchLabels:
+      app_name: {{ .Values.kubeStateMetrics.name }}
+  template:
+    metadata:
+      labels:
+        app_name: {{ .Values.kubeStateMetrics.name }}
+        kube_state_metric_exporter_version: {{ .Values.kubeStateMetrics.image.tag | quote }}
+        helm_chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+{{- if .Values.kubeStateMetrics.podAnnotations }}
+      annotations:
+{{ toYaml .Values.kubeStateMetrics.podAnnotations | indent 8}}
+{{- end}}
+    spec:
+      containers:
+      - name: {{ .Values.kubeStateMetrics.name }}
+        resources:
+{{ toYaml .Values.kubeStateMetrics.resources | indent 10 }}
+        image: {{ .Values.kubeStateMetrics.image.repository }}/{{ .Values.kubeStateMetrics.image.name }}:{{ .Values.kubeStateMetrics.image.tag }}
+        imagePullPolicy: "{{ .Values.kubeStateMetrics.image.pullPolicy }}"
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 1
+          initialDelaySeconds: 10
+          httpGet:
+            path: "/healthz"
+            port: 8080
+        livenessProbe:
+          initialDelaySeconds: 60
+          httpGet:
+            path: "/healthz"
+            port: 8080

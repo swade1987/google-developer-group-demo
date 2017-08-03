@@ -1,0 +1,7 @@
+ALERT FotiaHighErrorCount
+  IF ecount > 5
+  LABELS { severity = "warning" }
+  ANNOTATIONS {
+    summary = "Fotia High Error Count Alert",
+    description = "Fotia error count breached the threshold of 5, current count is {{ $value }}",
+  }

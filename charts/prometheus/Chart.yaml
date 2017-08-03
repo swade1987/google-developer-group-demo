@@ -1,0 +1,7 @@
+apiVersion: v1
+description: A Helm chart for Prometheus monitoring
+name: prometheus
+version: 1.0.0
+maintainers:
+  - name: Steve Wade
+    email: swade@apprenda.com

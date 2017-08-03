@@ -1,0 +1,20 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Values.server.name }}
+  labels:
+    app_name: {{ .Values.server.name }}
+    app_version: {{ .Values.server.image.tag | quote }}
+    helm_chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+{{- if .Values.server.service.annotations }}
+  annotations:
+{{ toYaml .Values.server.service.annotations | indent 4}}
+{{- end}}
+spec:
+  selector:
+    app_name: {{ .Values.server.name }}
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 9090

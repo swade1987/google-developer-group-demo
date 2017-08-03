@@ -1,0 +1,20 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Values.kubeStateMetrics.name }}
+  labels:
+    app_name: {{ .Values.kubeStateMetrics.name }}
+    app_version: {{ .Values.kubeStateMetrics.image.tag | quote }}
+    helm_chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+{{- if .Values.kubeStateMetrics.service.annotations }}
+  annotations:
+{{ toYaml .Values.kubeStateMetrics.service.annotations | indent 4}}
+{{- end}}
+spec:
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 8080
+  selector:
+    app_name: {{ .Values.kubeStateMetrics.name }}
