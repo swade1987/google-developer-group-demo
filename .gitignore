@@ -6,3 +6,15 @@
 .terraform/
 
 .DS_Store
+
+# Kismatic
+helm
+kismatic
+provision
+kubectl
+ansible/
+runs/
+generated/
+kubeconfig
+
+ssh/

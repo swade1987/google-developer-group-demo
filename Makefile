@@ -16,6 +16,10 @@ plan-cluster:
 cluster:
 	cd terraform && terraform apply
 
+pre-validate-cluster:
+	chmod 600 ssh/cluster.pem
+	./kismatic install validate -f kismatic-cluster.yaml
+
 provision-cluster:
 	chmod 600 ssh/cluster.pem
 	./kismatic install apply -f kismatic-cluster.yaml

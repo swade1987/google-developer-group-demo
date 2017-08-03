@@ -1,0 +1,92 @@
+cluster:
+  name: kubernetes
+  admin_password: sitcexeygusamh228      # This password is used to login to the Kubernetes Dashboard and can also be used for administration without a security certificate.
+  disable_package_installation: false    # When true, installation will not occur if any node is missing the correct deb/rpm packages. When false, the installer will attempt to install missing packages for you.
+  package_repository_urls: ""            # Comma-separated list of URLs of the repositories that should be used during installation. These repositories must contain the kismatic packages and all their transitive dependencies.
+  disconnected_installation: false       # Set to true if you have already installed the required packages on the nodes or provided a local URL in package_repository_urls containing those packages.
+  disable_registry_seeding: false        # Set to true if you have seeded your registry with the required images for the installation.
+  networking:
+    pod_cidr_block: 172.16.0.0/16        # Kubernetes will assign pods IPs in this range. Do not use a range that is already in use on your local network!
+    service_cidr_block: 172.20.0.0/16    # Kubernetes will assign services IPs in this range. Do not use a range that is already in use by your local network or pod network!
+    update_hosts_files: true            # When true, the installer will add entries for all nodes to other nodes' hosts files. Use when you don't have access to DNS.
+    http_proxy: ""                       # Set the proxy server to use for HTTP connections.
+    https_proxy: ""                      # Set the proxy server to use for HTTPs connections
+    no_proxy: ""                         # List of host names and/or IPs that shouldn't go through any proxy. If set to a asterisk '*' only, it matches all hosts.
+  certificates:
+    expiry: 17520h                       # Self-signed certificate expiration period in hours; default is 2 years.
+    ca_expiry: 17520h                    # CA certificate expiration period in hours; default is 2 years.
+  ssh:
+    user: root
+    ssh_key: /Users/StevenWade/src/github.com/swade1987/google-developer-group-demo/ssh/cluster.pem            # Absolute path to the ssh private key we should use to manage nodes.
+    ssh_port: 22
+  kube_apiserver:
+    option_overrides: {}
+docker:
+  storage:
+    direct_lvm:                          # Configure devicemapper in direct-lvm mode (RHEL/CentOS only).
+      enabled: false
+      block_device: ""                   # Path to the block device that will be used for direct-lvm mode. This device will be wiped and used exclusively by docker.
+      enable_deferred_deletion: false    # Set to true if you want to enable deferred deletion when using direct-lvm mode.
+docker_registry:                         # Here you will provide the details of your Docker registry or setup an internal one to run in the cluster. This is optional and the cluster will always have access to the Docker Hub.
+  setup_internal: false                  # When true, a Docker Registry will be installed on top of your cluster and used to host Docker images needed for its installation.
+  address: ""                            # IP or hostname for your Docker registry. An internal registry will NOT be setup when this field is provided. Must be accessible from all the nodes in the cluster.
+  port: 8443                             # Port for your Docker registry.
+  CA: ""                                 # Absolute path to the CA that was used when starting your Docker registry. The docker daemons on all nodes in the cluster will be configured with this CA.
+add_ons:
+  cni:
+    disable: false
+    provider: calico                     # Options: 'calico','weave','contiv','custom'. Selecting 'custom' will result in a CNI ready cluster, however it is up to you to configure a plugin after the install.
+    options:
+      calico:
+        mode: overlay                    # Options: 'overlay','routed'. Routed pods can be addressed from outside the Kubernetes cluster; Overlay pods can only address each other.
+  dns:
+    disable: false
+  heapster:
+    disable: false
+    options:
+      heapster:
+        replicas: 2
+        service_type: ClusterIP          # Options: 'ClusterIP','NodePort','LoadBalancer','ExternalName'. Specify kubernetes ServiceType; default 'ClusterIP'
+        sink: influxdb:http://heapster-influxdb.kube-system.svc:8086 # Specify the sink to store heapster data; default to a pod running on cluster.
+      influxdb:
+        pvc_name: ""                     # Provide the name of the persistent volume claim that you will create after installation. If not specified, the data will be stored in ephemeral storage.
+  dashbard:
+    disable: false
+  package_manager:
+    disable: false
+    provider: helm                       # Options: 'helm'
+etcd:                                    # Here you will identify all of the nodes that should play the etcd role on your cluster.
+  expected_count: 1
+  nodes:
+  - host: etcd1                             # The (short) hostname of a node, e.g. etcd01.
+    ip: 188.166.170.113                              # The ip address the installer should use to manage this node, e.g. 8.8.8.8.
+master:                                  # Here you will identify all of the nodes that should play the master role.
+  expected_count: 1
+  load_balanced_fqdn: 188.166.150.241                 # If you have set up load balancing for master nodes, enter the FQDN name here. Otherwise, use the IP address of a single master node.
+  load_balanced_short_name: 188.166.150.241           # If you have set up load balancing for master nodes, enter the short name here. Otherwise, use the IP address of a single master node.
+  nodes:
+  - host: master1
+    ip: 188.166.150.241
+worker:                                  # Here you will identify all of the nodes that will be workers.
+  expected_count: 3
+  nodes:
+  - host: worker1
+    ip: 46.101.87.132
+  - host: worker2
+    ip: 46.101.87.171
+  - host: worker3
+    ip: 139.59.172.127
+ingress:
+  expected_count: 1
+  nodes:
+  - host: ingress1
+    ip: 46.101.79.212
+storage:
+  expected_count: 2
+  nodes:
+  - host: storage1
+    ip: 46.101.73.15
+  - host: storage2
+    ip: 46.101.87.8
+nfs:                                     # A set of NFS volumes for use by on-cluster persistent workloads, managed by Kismatic.
+  nfs_volume: []

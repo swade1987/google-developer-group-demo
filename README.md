@@ -21,3 +21,7 @@ We will then proceed to cause Prometheus to fire alerts to Slack based upon inte
 A list of prerequisities for Mac can be found [here](docs/1-mac-prerequisities.md)
 
 A list of prerequisities for Windows can be found [here](docs/2-windows-prerequisities.md)
+
+## Cluster creation
+
+A list of steps to build and provision the Kubernetes cluster can be found [here](docs/3-build-cluster.md)
