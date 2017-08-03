@@ -1,0 +1,54 @@
+# Server represents the Grafana instance. It is the main container in the Pod.
+server:
+  name: grafana
+
+  image:
+    repository: docker.io
+    name: grafana/grafana
+    tag: 4.4.2
+    pullPolicy: IfNotPresent
+
+  nodeSelector: {}
+
+  adminUser: "admin"
+  adminPassword: "admin"
+
+  persistentVolume:
+    accessModes:
+      - ReadWriteMany
+    annotations:
+      helm.sh/resource-policy: keep
+    size: 10Gi
+    storageClass: "kismatic"
+
+  resources:
+    # Maximum resources the container will use
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    # Minimum resources the container will request
+    requests:
+      cpu: 100m
+      memory: 100Mi
+
+  # The time kubernetes will allow the pod to remain in the terminating state.
+  terminationGracePeriodSeconds: 300
+
+  installPlugins: {}
+
+  dashboard:
+    name: grafana-dashboard
+
+  ingress:
+    hostname: grafana.example.com
+
+# Watcher is an additional container running in the Grafana Pod.
+# It looks for changes to the configmap and reloads Grafana's config and the datasource.
+watcher:
+  name: grafana-watcher
+
+  image:
+    repository: quay.io
+    name: coreos/grafana-watcher
+    tag: v0.0.6
+    pullPolicy: IfNotPresent

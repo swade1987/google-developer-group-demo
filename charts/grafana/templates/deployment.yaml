@@ -1,0 +1,96 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: {{ .Values.server.name }}
+  labels:
+    app_name: {{ .Values.server.name }}
+    app_version: {{ .Values.server.image.tag | quote }}
+    helm_chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+spec:
+  revisionHistoryLimit: 30
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  replicas: {{ .Values.server.replicas }}
+  selector:
+    matchLabels:
+      app_name: {{ .Values.server.name }}
+  template:
+    metadata:
+      labels:
+        app_name: {{ .Values.server.name }}
+        grafana_server_version: {{ .Values.server.image.tag | quote }}
+        helm_chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    spec:
+      containers:
+      - name: {{ .Values.server.name }}
+        image: "{{ .Values.server.image.repository }}/{{ .Values.server.image.name }}:{{ .Values.server.image.tag }}"
+        imagePullPolicy: "{{ .Values.server.image.pullPolicy }}"
+        env:
+          - name: GF_SECURITY_ADMIN_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.server.name }}
+                key: grafana-admin-user
+          - name: GF_SECURITY_ADMIN_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.server.name }}
+                key: grafana-admin-password
+          {{- if .Values.server.installPlugins }}
+          - name: GF_INSTALL_PLUGINS
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Values.server.name }}
+                key: grafana-install-plugins
+          {{- end }}
+        ports:
+          - containerPort: 3000
+        readinessProbe:
+          httpGet:
+            path: /login
+            port: 3000
+          initialDelaySeconds: 30
+          timeoutSeconds: 30
+        resources:
+{{ toYaml .Values.server.resources | indent 12 }}
+        volumeMounts:
+          - name: config-volume
+            mountPath: "/etc/grafana"
+          - name: dashboard-volume
+            mountPath: "/var/lib/grafana/dashboards"
+          - name: storage-volume
+            mountPath: "/var/lib/grafana/data"
+      - name: "{{ .Values.watcher.name }}"
+        image: {{ .Values.watcher.image.repository }}/{{ .Values.watcher.image.name }}:{{ .Values.watcher.image.tag }}
+        imagePullPolicy: {{ default "Always" .Values.watcher.image.pullPolicy }}
+        args:
+          - --watch-dir=/var/lib/grafana/dashboards
+          - --grafana-url=http://localhost:3000
+        env:
+          - name: GRAFANA_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.server.name }}
+                key: grafana-admin-user
+          - name: GRAFANA_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.server.name }}
+                key: grafana-admin-password
+        volumeMounts:
+          - name: dashboard-volume
+            mountPath: "/var/lib/grafana/dashboards"
+      terminationGracePeriodSeconds: {{ .Values.server.terminationGracePeriodSeconds }}
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ .Values.server.name }}
+        - name: dashboard-volume
+          configMap:
+            name: {{ .Values.server.dashboard.name }}
+        - name: storage-volume
+          persistentVolumeClaim:
+            claimName: {{ .Values.server.name }}
