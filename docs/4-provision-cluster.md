@@ -73,3 +73,7 @@ worker1    Ready                      8m        v1.7.2
 worker2    Ready                      8m        v1.7.2
 worker3    Ready                      8m        v1.7.2
 ```
+
+# Installing Prometheus & Grafana
+
+We now need to install Prometheus and Grafana onto the cluster, follow the steps [here](5-installing-prometheus-and-grafana.md)
