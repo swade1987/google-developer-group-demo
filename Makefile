@@ -39,3 +39,6 @@ deploy-grafana:
 	@echo "Create PVs for grafana"
 	./kismatic volume add 10
 	KUBECONFIG=$(KUBECONFIG) helm upgrade --install grafana charts/grafana
+
+deploy-fotia:
+	KUBECONFIG=$(KUBECONFIG) helm upgrade --install fotia charts/fotia
