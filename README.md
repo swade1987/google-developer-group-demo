@@ -26,10 +26,18 @@ A list of prerequisities for Windows can be found [here](docs/2-windows-prerequi
 
 A list of steps to build and provision the Kubernetes cluster can be found [here](docs/3-build-cluster.md)
 
-## TODO List
+## Helm chart deployment
 
-[ ] Fix Prometheus scraping jobs to work with `/metrics/cadvisor` endpoint.
+A list of steps to deploy the necessary Helm charts can be found [here](5-installing-prometheus-and-grafana.md)
 
-[ ] Include section on configuring the Slack webook URL.
+## Pro-active alerting demo
 
-[ ] Document workflow to fire alerts to Slack.
+A list of steps to demonstrate pro-active alerting can be found [here](7-alerting-workflow.md)
+
+## Cleanup
+
+To clean up your local machine and remove all the droplets from digital ocean execute the following:
+
+```
+$ make destroy-cluster
+```
