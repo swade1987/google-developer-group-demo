@@ -16,6 +16,10 @@ After standing up the Kubernetes cluster we will deploy the following applicatio
 
 We will then proceed to cause Prometheus to fire alerts to Slack based upon interaction with Fotia.
 
+## Slides
+
+The slides accompanying this demo can be found [here](slides/slide-deck.pdf)
+
 ## Prerequisites
 
 A list of prerequisities for Mac can be found [here](docs/1-mac-prerequisities.md)
