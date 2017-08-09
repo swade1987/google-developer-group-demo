@@ -48,3 +48,43 @@ From the Prometheus homepage enter `ecount` into the textbox and click `execute`
 If you go back to the Fotia dashboard in Grafana you should see the following
 
 ![alt text](../img/fotia-dashboard-increasing-further.png)
+
+## 11. Check the #fotia-alerts channel in Slack
+
+In slack you should now see the following alert:
+
+![alt text](../img/slack-alert.png)
+
+## 12. Increase the ecount metric further
+
+Browse to the following URL: [http://fotia.example.com/up/6/](http://fotia.example.com/up/6/)
+
+## 13. Check the #fotia-alerts channel in Slack
+
+In slack you should now see the following alert:
+
+![alt text](../img/slack-alert-again.png)
+
+## 14. Check the alert manager UI
+
+If you browse to the Alert Manager you should now see the alert
+
+![alt text](../img/alert-manager-displaying-alert.png)
+
+## 15. Refresh the Grafana dashboard
+
+If you go back to the Fotia dashboard in Grafana you should see the following
+
+![alt text](../img/fotia-dashboard-increasing-again.png)
+
+## 16. Decreate the ecount metric back to zero
+
+Browse to the following URL: [http://fotia.example.com/down/15/](http://fotia.example.com/up/15/)
+
+## 17. Refresh the Grafana dashboard
+
+If you go back to the Fotia dashboard in Grafana you should see the line go back down to zero.
+
+## 18. Check the alert manager UI
+
+If you browse to the Alert Manager you should now see the alert has gone.
