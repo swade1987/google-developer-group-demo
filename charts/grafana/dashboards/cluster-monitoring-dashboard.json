@@ -56,29 +56,6 @@
     "rows": [
       {
         "collapse": false,
-        "height": "200",
-        "panels": [
-          {
-            "content": "<p style=\"font-size:60px; text-align:center\">$Env-$Location</p>",
-            "height": "",
-            "id": 33,
-            "links": [],
-            "mode": "html",
-            "span": 12,
-            "title": "Environment & Location",
-            "transparent": false,
-            "type": "text"
-          }
-        ],
-        "repeat": null,
-        "repeatIteration": null,
-        "repeatRowId": null,
-        "showTitle": false,
-        "title": "Dashboard Row",
-        "titleSize": "h2"
-      },
-      {
-        "collapse": false,
         "height": "200px",
         "panels": [
           {
