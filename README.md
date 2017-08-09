@@ -28,11 +28,11 @@ A list of steps to build and provision the Kubernetes cluster can be found [here
 
 ## Helm chart deployment
 
-A list of steps to deploy the necessary Helm charts can be found [here](5-installing-prometheus-and-grafana.md)
+A list of steps to deploy the necessary Helm charts can be found [here](docs/5-installing-prometheus-and-grafana.md)
 
 ## Pro-active alerting demo
 
-A list of steps to demonstrate pro-active alerting can be found [here](7-alerting-workflow.md)
+A list of steps to demonstrate pro-active alerting can be found [here](docs/7-alerting-workflow.md)
 
 ## Cleanup
 
