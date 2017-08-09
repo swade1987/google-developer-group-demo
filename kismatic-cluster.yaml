@@ -1,6 +1,6 @@
 cluster:
   name: kubernetes
-  admin_password: sitcexeygusamh228      # This password is used to login to the Kubernetes Dashboard and can also be used for administration without a security certificate.
+  admin_password: HoVmiBeJrudasvi19      # This password is used to login to the Kubernetes Dashboard and can also be used for administration without a security certificate.
   disable_package_installation: false    # When true, installation will not occur if any node is missing the correct deb/rpm packages. When false, the installer will attempt to install missing packages for you.
   package_repository_urls: ""            # Comma-separated list of URLs of the repositories that should be used during installation. These repositories must contain the kismatic packages and all their transitive dependencies.
   disconnected_installation: false       # Set to true if you have already installed the required packages on the nodes or provided a local URL in package_repository_urls containing those packages.
@@ -50,8 +50,8 @@ add_ons:
         sink: influxdb:http://heapster-influxdb.kube-system.svc:8086 # Specify the sink to store heapster data; default to a pod running on cluster.
       influxdb:
         pvc_name: ""                     # Provide the name of the persistent volume claim that you will create after installation. If not specified, the data will be stored in ephemeral storage.
-  dashbard:
-    disable: false
+  dashboard: null
+  dashbard: null
   package_manager:
     disable: false
     provider: helm                       # Options: 'helm'
@@ -59,34 +59,34 @@ etcd:                                    # Here you will identify all of the nod
   expected_count: 1
   nodes:
   - host: etcd1                             # The (short) hostname of a node, e.g. etcd01.
-    ip: 188.166.170.113                              # The ip address the installer should use to manage this node, e.g. 8.8.8.8.
+    ip: 138.68.155.95                              # The ip address the installer should use to manage this node, e.g. 8.8.8.8.
 master:                                  # Here you will identify all of the nodes that should play the master role.
   expected_count: 1
-  load_balanced_fqdn: 188.166.150.241                 # If you have set up load balancing for master nodes, enter the FQDN name here. Otherwise, use the IP address of a single master node.
-  load_balanced_short_name: 188.166.150.241           # If you have set up load balancing for master nodes, enter the short name here. Otherwise, use the IP address of a single master node.
+  load_balanced_fqdn: 138.68.155.99                 # If you have set up load balancing for master nodes, enter the FQDN name here. Otherwise, use the IP address of a single master node.
+  load_balanced_short_name: 138.68.155.99           # If you have set up load balancing for master nodes, enter the short name here. Otherwise, use the IP address of a single master node.
   nodes:
   - host: master1
-    ip: 188.166.150.241
+    ip: 138.68.155.99
 worker:                                  # Here you will identify all of the nodes that will be workers.
   expected_count: 3
   nodes:
   - host: worker1
-    ip: 46.101.87.132
+    ip: 138.68.155.132
   - host: worker2
-    ip: 46.101.87.171
+    ip: 138.68.155.139
   - host: worker3
-    ip: 139.59.172.127
+    ip: 138.68.155.79
 ingress:
   expected_count: 1
   nodes:
   - host: ingress1
-    ip: 46.101.79.212
+    ip: 138.68.155.101
 storage:
   expected_count: 2
   nodes:
   - host: storage1
-    ip: 46.101.73.15
+    ip: 138.68.155.121
   - host: storage2
-    ip: 46.101.87.8
+    ip: 138.68.155.84
 nfs:                                     # A set of NFS volumes for use by on-cluster persistent workloads, managed by Kismatic.
   nfs_volume: []
