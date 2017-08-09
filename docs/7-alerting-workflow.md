@@ -83,7 +83,9 @@ Browse to the following URL: [http://fotia.example.com/down/15/](http://fotia.ex
 
 ## 17. Refresh the Grafana dashboard
 
-If you go back to the Fotia dashboard in Grafana you should see the line go back down to zero.
+If you go back to the Fotia dashboard in Grafana you should see the line go back down to zero
+
+![alt text](../img/fotia-dashboard-down-to-zero.png)
 
 ## 18. Check the alert manager UI
 
