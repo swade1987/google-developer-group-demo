@@ -6,7 +6,7 @@ The following repository will create you a Kubernetes cluster using:
 
 1. [Digital Ocean](https://www.digitalocean.com/) for the underlying infrastructure.
 2. [Terraform](https://www.terraform.io/) to create the infrastructure.
-3. [Kismatic Enterprise Toolkit (v1.5.0)](https://github.com/apprenda/kismatic) for provisioning our Kubernetes cluster.
+3. [Kismatic Enterprise Toolkit (v1.5.2)](https://github.com/apprenda/kismatic) for provisioning our Kubernetes cluster.
 
 After standing up the Kubernetes cluster we will deploy the following applications:
 
