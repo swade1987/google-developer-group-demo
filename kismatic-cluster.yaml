@@ -59,34 +59,34 @@ etcd:                                    # Here you will identify all of the nod
   expected_count: 1
   nodes:
   - host: etcd1                             # The (short) hostname of a node, e.g. etcd01.
-    ip: 138.68.155.95                              # The ip address the installer should use to manage this node, e.g. 8.8.8.8.
+    ip: 188.166.155.182                              # The ip address the installer should use to manage this node, e.g. 8.8.8.8.
 master:                                  # Here you will identify all of the nodes that should play the master role.
   expected_count: 1
-  load_balanced_fqdn: 138.68.155.99                 # If you have set up load balancing for master nodes, enter the FQDN name here. Otherwise, use the IP address of a single master node.
-  load_balanced_short_name: 138.68.155.99           # If you have set up load balancing for master nodes, enter the short name here. Otherwise, use the IP address of a single master node.
+  load_balanced_fqdn: 188.166.155.252                 # If you have set up load balancing for master nodes, enter the FQDN name here. Otherwise, use the IP address of a single master node.
+  load_balanced_short_name: 188.166.155.252           # If you have set up load balancing for master nodes, enter the short name here. Otherwise, use the IP address of a single master node.
   nodes:
   - host: master1
-    ip: 138.68.155.99
+    ip: 188.166.155.252
 worker:                                  # Here you will identify all of the nodes that will be workers.
   expected_count: 3
   nodes:
   - host: worker1
-    ip: 138.68.155.132
+    ip: 188.166.155.130
   - host: worker2
-    ip: 138.68.155.139
+    ip: 46.101.52.143
   - host: worker3
-    ip: 138.68.155.79
+    ip: 188.166.151.13
 ingress:
   expected_count: 1
   nodes:
   - host: ingress1
-    ip: 138.68.155.101
+    ip: 188.166.151.222
 storage:
   expected_count: 2
   nodes:
   - host: storage1
-    ip: 138.68.155.121
+    ip: 188.166.168.220
   - host: storage2
-    ip: 138.68.155.84
+    ip: 188.166.155.187
 nfs:                                     # A set of NFS volumes for use by on-cluster persistent workloads, managed by Kismatic.
   nfs_volume: []

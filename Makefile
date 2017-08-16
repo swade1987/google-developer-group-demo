@@ -1,4 +1,4 @@
-KISMATIC_VERSION=1.5.1
+KISMATIC_VERSION=1.5.2
 CURRENT_DIR = $(shell pwd)
 KUBECONFIG = $(CURRENT_DIR)/kubeconfig
 
@@ -37,7 +37,7 @@ deploy-prometheus:
 
 deploy-grafana:
 	@echo "Create PVs for grafana"
-	./kismatic volume add 10
+	#./kismatic volume add 10
 	KUBECONFIG=$(KUBECONFIG) helm upgrade --install grafana charts/grafana
 
 deploy-fotia:
