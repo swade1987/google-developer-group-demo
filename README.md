@@ -6,7 +6,7 @@ The following repository will create you a Kubernetes cluster using:
 
 1. [Digital Ocean](https://www.digitalocean.com/) for the underlying infrastructure.
 2. [Terraform](https://www.terraform.io/) to create the infrastructure.
-3. [Kismatic Enterprise Toolkit (v1.5.2)](https://github.com/apprenda/kismatic) for provisioning our Kubernetes cluster.
+3. [Kismatic Enterprise Toolkit (v1.5.3)](https://github.com/apprenda/kismatic) for provisioning our Kubernetes cluster.
 
 After standing up the Kubernetes cluster we will deploy the following applications:
 
@@ -38,9 +38,9 @@ A list of steps to deploy the necessary Helm charts can be found [here](docs/5-i
 
 A list of steps to demonstrate pro-active alerting can be found [here](docs/7-alerting-workflow.md)
 
-## Cleanup
+## Cleanup (from your local machine)
 
-To clean up your local machine and remove all the droplets from digital ocean execute the following:
+To remove all the droplets from digital ocean execute the following:
 
 ```
 $ make destroy-cluster

@@ -17,7 +17,7 @@ cluster:
     ca_expiry: 17520h                    # CA certificate expiration period in hours; default is 2 years.
   ssh:
     user: root
-    ssh_key: /Users/StevenWade/src/github.com/swade1987/google-developer-group-demo/ssh/cluster.pem            # Absolute path to the ssh private key we should use to manage nodes.
+    ssh_key: /root/cluster.pem            # Absolute path to the ssh private key we should use to manage nodes.
     ssh_port: 22
   kube_apiserver:
     option_overrides: {}
@@ -59,34 +59,34 @@ etcd:                                    # Here you will identify all of the nod
   expected_count: 1
   nodes:
   - host: etcd1                             # The (short) hostname of a node, e.g. etcd01.
-    ip: 188.166.155.182                              # The ip address the installer should use to manage this node, e.g. 8.8.8.8.
+    ip:                               # The ip address the installer should use to manage this node, e.g. 8.8.8.8.
 master:                                  # Here you will identify all of the nodes that should play the master role.
   expected_count: 1
-  load_balanced_fqdn: 188.166.155.252                 # If you have set up load balancing for master nodes, enter the FQDN name here. Otherwise, use the IP address of a single master node.
-  load_balanced_short_name: 188.166.155.252           # If you have set up load balancing for master nodes, enter the short name here. Otherwise, use the IP address of a single master node.
+  load_balanced_fqdn:                  # If you have set up load balancing for master nodes, enter the FQDN name here. Otherwise, use the IP address of a single master node.
+  load_balanced_short_name:            # If you have set up load balancing for master nodes, enter the short name here. Otherwise, use the IP address of a single master node.
   nodes:
   - host: master1
-    ip: 188.166.155.252
+    ip:
 worker:                                  # Here you will identify all of the nodes that will be workers.
   expected_count: 3
   nodes:
   - host: worker1
-    ip: 188.166.155.130
+    ip:
   - host: worker2
-    ip: 46.101.52.143
+    ip:
   - host: worker3
-    ip: 188.166.151.13
+    ip:
 ingress:
   expected_count: 1
   nodes:
   - host: ingress1
-    ip: 188.166.151.222
+    ip:
 storage:
   expected_count: 2
   nodes:
   - host: storage1
-    ip: 188.166.168.220
+    ip:
   - host: storage2
-    ip: 188.166.155.187
+    ip:
 nfs:                                     # A set of NFS volumes for use by on-cluster persistent workloads, managed by Kismatic.
   nfs_volume: []

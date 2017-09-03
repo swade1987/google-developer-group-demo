@@ -1,5 +1,26 @@
 # Provisioning the Kubernetes cluster
 
+## SSH into the bootstrap node
+
+The output from Terraform should look something like below:
+
+```
+Outputs:
+
+bootstrap_node_ip = 178.62.20.88
+etcd_node_ips = 139.59.186.190
+ingress_node_ips = 139.59.182.224
+master_node_ips = 139.59.190.32
+storage_node_ips = 138.68.159.250,138.68.152.151
+worker_node_ips = 138.68.152.231,138.68.135.238,139.59.186.112
+```
+
+Execute the following command to obtain access to the bootstrap node.
+
+```
+$ ssh -i ssh/cluster.pem root@<bootstrap_node_ip>
+```
+
 ## Downloading the necessary dependencies
 
 Execute the following command from the repo root to download Kismatic
@@ -58,20 +79,20 @@ $ make provision-cluster
 
 ## Validate cluster provisioning
 
-To validate all is well execute `kubectl --kubeconfig kubeconfig get nodes`
+To validate all is well execute `kubectl get nodes`
 
 You should be shown:
 
 ```
-$  kubectl --kubeconfig kubeconfig get nodes
+root@bootstrap:~# kubectl get nodes
 NAME       STATUS                     AGE       VERSION
-ingress1   Ready,SchedulingDisabled   8m        v1.7.2
-master1    Ready,SchedulingDisabled   8m        v1.7.2
-storage1   Ready,SchedulingDisabled   8m        v1.7.2
-storage2   Ready,SchedulingDisabled   8m        v1.7.2
-worker1    Ready                      8m        v1.7.2
-worker2    Ready                      8m        v1.7.2
-worker3    Ready                      8m        v1.7.2
+ingress1   Ready,SchedulingDisabled   8m        v1.7.4
+master1    Ready,SchedulingDisabled   8m        v1.7.4
+storage1   Ready,SchedulingDisabled   8m        v1.7.4
+storage2   Ready,SchedulingDisabled   8m        v1.7.4
+worker1    Ready                      8m        v1.7.4
+worker2    Ready                      8m        v1.7.4
+worker3    Ready                      8m        v1.7.4
 ```
 
 # Installing Prometheus & Grafana

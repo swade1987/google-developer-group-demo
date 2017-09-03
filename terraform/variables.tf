@@ -3,7 +3,7 @@ variable "digital_ocean_token" {
 }
 
 variable "ssh_key_name" {
-  default = "google-developer-group-demo"
+  default = "kismatic-sandbox"
 }
 
 # possible options

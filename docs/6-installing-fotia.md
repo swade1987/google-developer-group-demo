@@ -1,6 +1,6 @@
 # Installing Fotia
 
-## Installation
+## Installation (from the bootstrap node)
 
 To install Fotia execute the following command:
 
@@ -8,7 +8,7 @@ To install Fotia execute the following command:
 $ make deploy-fotia
 ```
 
-## Update hostfile
+## Update hostfile (from your local machine)
 
 We need to edit our hostfile to allow access to Fotia.
 
