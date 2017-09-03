@@ -27,7 +27,7 @@ variable image {
 
 variable cluster_tag {
   description = "A unique tag for the cluster"
-  default     = "kismatic-sandbox"
+  default     = "google-developer-group-demo"
 }
 
 variable droplet_size {
