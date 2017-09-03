@@ -1,15 +1,15 @@
 # Installing Prometheus and Grafana
 
-## Installation
+## Installation (from the bootstrap node)
 
-To install Prometheus and Grafana execute the following command:
+To install Prometheus and Grafana execute the following command *from the bootstrap node*:
 
 ```
 $ make deploy-prometheus
 $ make deploy-grafana
 ```
 
-## Update hostfile
+## Update hostfile (local machine)
 
 We need to edit our hostfile to allow access to Prometheus, Grafana and the Alert Manager.
 
@@ -29,7 +29,7 @@ Note: You ingress IP address can be found [here](https://cloud.digitalocean.com/
 46.101.80.26 alerting.example.com
 ```
 
-## Validate installation
+## Validate installation (from your local machine)
 
 To validate everything has been successfully installed browse to the following set of URLs:
 
