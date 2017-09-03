@@ -38,9 +38,9 @@ A list of steps to deploy the necessary Helm charts can be found [here](docs/5-i
 
 A list of steps to demonstrate pro-active alerting can be found [here](docs/7-alerting-workflow.md)
 
-## Cleanup
+## Cleanup (from your local machine)
 
-To clean up your local machine and remove all the droplets from digital ocean execute the following:
+To remove all the droplets from digital ocean execute the following:
 
 ```
 $ make destroy-cluster
