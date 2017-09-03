@@ -13,10 +13,10 @@ ssh-keypair:
 	cd ssh && ssh-keygen -t rsa -f cluster.pem -N ""
 
 plan-cluster:
-	cd terraform && terraform plan
+	cd terraform && terraform init && terraform plan
 
 cluster:
-	cd terraform && terraform apply
+	cd terraform && terraform init && terraform apply
 
 pre-validate-cluster:
 	chmod 600 cluster.pem
@@ -30,7 +30,7 @@ provision-cluster:
 	cp kubeconfig ~/.kube/config
 
 destroy-cluster:
-	cd terraform && terraform destroy --force
+	cd terraform && terraform init && terraform destroy --force
 	rm -rf ansible generated runs ssh helm kismatic kubeconfig kubectl provision
 
 deploy-prometheus:
