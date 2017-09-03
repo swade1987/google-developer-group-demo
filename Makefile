@@ -1,10 +1,12 @@
-KISMATIC_VERSION=1.5.2
+KISMATIC_VERSION=1.5.3
 CURRENT_DIR = $(shell pwd)
 KUBECONFIG = $(CURRENT_DIR)/kubeconfig
 
 get-dependencies:
 	@echo "Download and install Kismatic"
-	wget --no-check-certificate -O - https://github.com/apprenda/kismatic/releases/download/v$(KISMATIC_VERSION)/kismatic-v$(KISMATIC_VERSION)-darwin-amd64.tar.gz | tar -zx
+	wget --no-check-certificate -O - https://github.com/apprenda/kismatic/releases/download/v$(KISMATIC_VERSION)/kismatic-v$(KISMATIC_VERSION)-linux-amd64.tar.gz | tar -zx
+	cp helm /usr/local/bin/helm
+	cp kubectl /usr/local/bin/kubectl
 
 ssh-keypair:
 	mkdir ssh
@@ -17,13 +19,15 @@ cluster:
 	cd terraform && terraform apply
 
 pre-validate-cluster:
-	chmod 600 ssh/cluster.pem
+	chmod 600 cluster.pem
 	./kismatic install validate -f kismatic-cluster.yaml
 
 provision-cluster:
-	chmod 600 ssh/cluster.pem
+	chmod 600 cluster.pem
 	./kismatic install apply -f kismatic-cluster.yaml
 	cp generated/kubeconfig .
+	mkdir ~/.kube/
+	cp kubeconfig ~/.kube/config
 
 destroy-cluster:
 	cd terraform && terraform destroy --force
@@ -33,12 +37,12 @@ deploy-prometheus:
 	@echo "Create PVs for prometheus"
 	./kismatic volume add 5
 	./kismatic volume add 5
-	KUBECONFIG=$(KUBECONFIG) helm upgrade --install prometheus charts/prometheus
+	helm upgrade --install prometheus prometheus
 
 deploy-grafana:
 	@echo "Create PVs for grafana"
-	#./kismatic volume add 10
-	KUBECONFIG=$(KUBECONFIG) helm upgrade --install grafana charts/grafana
+	./kismatic volume add 10
+	helm upgrade --install grafana grafana
 
 deploy-fotia:
-	KUBECONFIG=$(KUBECONFIG) helm upgrade --install fotia charts/fotia
+	helm upgrade --install fotia fotia
