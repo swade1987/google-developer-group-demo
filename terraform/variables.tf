@@ -3,7 +3,7 @@ variable "digital_ocean_token" {
 }
 
 variable "ssh_key_name" {
-  default = "google-developer-group-demo"
+  default = "kismatic-sandbox"
 }
 
 # possible options
@@ -27,7 +27,7 @@ variable image {
 
 variable cluster_tag {
   description = "A unique tag for the cluster"
-  default     = "google-developer-group-demo"
+  default     = "kismatic-sandbox"
 }
 
 variable droplet_size {

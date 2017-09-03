@@ -1,3 +1,7 @@
+output "bootstrap_node_ip" {
+  value = "${digitalocean_droplet.bootstrap_node.ipv4_address}"
+}
+
 output "master_node_ips" {
   value = "${join(",",digitalocean_droplet.master_nodes.*.ipv4_address)}"
 }
